@@ -1,0 +1,388 @@
+<!-- templates/user/profile.html -->
+{% extends "base.html" %}
+
+{% block title %}Профиль - SLUHALKA{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 120px 0 60px;
+        margin-bottom: 0;
+    }
+
+    .profile-card {
+        background: #181818;
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        margin-bottom: 30px;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #1DB954;
+    }
+
+    .stats-card {
+        background: #181818;
+        border: none;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .stats-card:hover {
+        background: #282828;
+    }
+
+    .stats-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1DB954;
+        margin-bottom: 5px;
+    }
+
+    .stats-label {
+        color: #b3b3b3;
+        font-size: 0.9rem;
+    }
+
+    .progress {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        height: 8px;
+        margin: 10px 0;
+    }
+
+    .progress-bar {
+        background: #1DB954;
+        border-radius: 10px;
+    }
+
+    .genre-tag {
+        background: rgba(29, 185, 84, 0.2);
+        color: #1DB954;
+        border: 1px solid #1DB954;
+        border-radius: 20px;
+        padding: 5px 15px;
+        margin: 5px;
+        display: inline-block;
+        font-size: 0.85rem;
+    }
+
+    .btn-edit {
+        background: #1DB954;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: 600;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit:hover {
+        background: #1ed760;
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-edit {
+        border: 2px solid #1DB954;
+        color: #1DB954;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-edit:hover {
+        background: #1DB954;
+        color: white;
+    }
+
+    .music-card {
+        background: #181818;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+    }
+
+    .music-card:hover {
+        background: #282828;
+        transform: translateY(-3px);
+    }
+
+    .album-cover {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .track-title {
+        color: #ffffff;
+        font-weight: 600;
+        margin-bottom: 2px;
+        font-size: 0.95rem;
+    }
+
+    .track-artist {
+        color: #b3b3b3;
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+
+    .section-title {
+        color: #ffffff;
+        font-weight: 700;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: #1DB954;
+        border-radius: 2px;
+    }
+
+    .nav-pills .nav-link.active {
+        background: #1DB954;
+        color: white;
+    }
+
+    .nav-pills .nav-link {
+        color: #b3b3b3;
+        border-radius: 10px;
+        margin: 0 5px;
+    }
+
+    .action-btn {
+        background: transparent;
+        border: 1px solid #b3b3b3;
+        color: #b3b3b3;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .action-btn:hover {
+        border-color: #1DB954;
+        color: #1DB954;
+        transform: scale(1.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Герой секция профиля -->
+    <header class="profile-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-2">Добро пожаловать, {{ user.username }}!</h1>
+                    <p class="lead mb-0">Ваша музыкальная статистика и настройки</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button class="btn btn-edit">
+                        <i class="fa fa-edit me-2"></i>Редактировать профиль
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container mt-5">
+        <div class="row">
+            <!-- Левая колонка - информация профиля -->
+            <div class="col-lg-4 mb-4">
+                <!-- Карточка профиля -->
+                <div class="profile-card p-4 text-center">
+                    <h3 class="mb-1">{{ user.username }}</h3>
+                    <p class="text-muted mb-3">{{ user.email }}</p>
+
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <div class="stats-card">
+                                <div class="stats-number">{{ stats.playlist_count }}</div>
+                                <div class="stats-label">Плейлиста</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stats-card">
+                                <div class="stats-number">{{ stats.unique_tracks }}</div>
+                                <div class="stats-label">Уникальных треков</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Статистика прослушиваний -->
+                <div class="profile-card p-4">
+                    <h5 class="section-title">Статистика прослушиваний</h5>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Всего треков прослушано</span>
+                            <span class="text-white">{{ stats.total_listens }}</span>
+                        </div>
+                        <div class="progress">
+                            {% set listen_width = (stats.total_listens / (stats.total_listens + 100)) * 100 if stats.total_listens > 0 else 0 %}
+                            <div class="progress-bar" style="width: {{ listen_width }}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Общее время прослушивания</span>
+                            <span class="text-white">{{ stats.total_time }}</span>
+                        </div>
+                        <div class="progress">
+                            {% set time_width = (stats.total_seconds / 100000) * 100 if stats.total_seconds > 0 else 0 %}
+                            <div class="progress-bar" style="width: {{ time_width }}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Любимые жанры -->
+                <div class="profile-card p-4">
+                    <h5 class="section-title">Любимые жанры</h5>
+                    <div class="text-center">
+                        {% if top_genres %}
+                            {% for genre in top_genres %}
+                                <span class="genre-tag">{{ genre.genre_name }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">Нет данных о прослушиваниях</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая колонка - активность и плейлисты -->
+            <div class="col-lg-8">
+                <!-- Навигация по вкладкам -->
+                <ul class="nav nav-pills mb-4" id="profileTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="pill" href="#favorites">Избранное</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="pill" href="#stats">Детальная статистика</a>
+                    </li>
+                </ul>
+
+                <!-- Содержимое вкладок -->
+                <div class="tab-content">
+                    <!-- Вкладка избранное -->
+                    <div class="tab-pane fade show active" id="favorites">
+                        <div class="profile-card p-4">
+                            <h5 class="section-title">Любимые треки</h5>
+
+                            <!-- Трек 1 -->
+                            <div class="music-card p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <img src="https://via.placeholder.com/60" class="album-cover" alt="Обложка">
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="track-title">Bohemian Rhapsody</h6>
+                                        <p class="track-artist">Queen • A Night at the Opera</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn action-btn">
+                                                <i class="fa fa-play"></i>
+                                            </button>
+                                            <button class="btn action-btn text-danger">
+                                                <i class="fa fa-heart"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Трек 2 -->
+                            <div class="music-card p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <img src="https://via.placeholder.com/60" class="album-cover" alt="Обложка">
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="track-title">Blinding Lights</h6>
+                                        <p class="track-artist">The Weeknd • After Hours</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn action-btn">
+                                                <i class="fa fa-play"></i>
+                                            </button>
+                                            <button class="btn action-btn text-danger">
+                                                <i class="fa fa-heart"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Трек 3 -->
+                            <div class="music-card p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <img src="https://via.placeholder.com/60" class="album-cover" alt="Обложка">
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="track-title">Shape of You</h6>
+                                        <p class="track-artist">Ed Sheeran • ÷ (Divide)</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn action-btn">
+                                                <i class="fa fa-play"></i>
+                                            </button>
+                                            <button class="btn action-btn text-danger">
+                                                <i class="fa fa-heart"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <button class="btn btn-outline-edit">
+                                    <i class="fa fa-music me-2"></i>Показать все 42 трека
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Вкладка детальная статистика -->
+                    <div class="tab-pane fade" id="stats">
+                        <div class="profile-card p-4">
+                            <h5 class="section-title">Детальная статистика</h5>
+                            <p class="text-muted">Графики и аналитика ваших музыкальных предпочтений...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,10 @@
+<!-- templates/500.html -->
+{% extends "base.html" %}
+{% block title %}Ошибка сервера{% endblock %}
+{% block content %}
+<div class="container mt-5 pt-5 text-center">
+    <h1>500 - Ошибка сервера</h1>
+    <p>Произошла внутренняя ошибка сервера.</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">На главную</a>
+</div>
+{% endblock %}

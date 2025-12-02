@@ -1,0 +1,504 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}SLUHALKA - Ваш музыкальный мир{% endblock %}
+
+{% block extra_css %}
+<style>
+        body {
+        background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+        color: #ffffff;
+        min-height: 100vh;
+    }
+
+        .navbar {
+            background: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #282828;
+        }
+
+        .nav-link {
+            color: #b3b3b3 !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #1DB954 !important;
+        }
+
+        .brand-logo {
+            color: #1DB954 !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path fill="rgba(255,255,255,0.1)" d="M500,250c138.07,0,250,111.93,250,250s-111.93,250-250,250s-250-111.93-250-250S361.93,250,500,250z"/></svg>') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #1DB954 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-hero {
+            background: #1DB954;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            transition: all 0.3s ease;
+            margin: 0 10px 15px;
+        }
+
+        .btn-hero:hover {
+            background: #1ed760;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(29, 185, 84, 0.3);
+        }
+
+        .btn-hero-outline {
+            background: transparent;
+            border: 2px solid #1DB954;
+            color: #1DB954;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 0 10px 15px;
+        }
+
+        .btn-hero-outline:hover {
+            background: #1DB954;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .features-section {
+            padding: 100px 0;
+            background: rgba(18, 18, 18, 0.7);
+        }
+
+        .feature-card {
+            background: #181818;
+            border: none;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 30px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: #282828;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .feature-description {
+            color: #b3b3b3;
+            line-height: 1.6;
+        }
+
+        .popular-section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-weight: 800;
+            margin-bottom: 50px;
+            position: relative;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #1DB954;
+            border-radius: 2px;
+        }
+
+        .music-card {
+            background: #181818;
+            border: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .music-card:hover {
+            background: #282828;
+            transform: translateY(-5px);
+        }
+
+        .album-cover {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .music-card:hover .album-cover {
+            transform: scale(1.05);
+        }
+
+        .track-title {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .track-artist {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .stats-section {
+            padding: 100px 0;
+            background: rgba(18, 18, 18, 0.7);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1DB954;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #b3b3b3;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            background: rgba(18, 18, 18, 0.95);
+            border-top: 1px solid #282828;
+            padding: 60px 0 30px;
+        }
+
+        .text-muted {
+            color: #b3b3b3 !important;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b3b3b3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #1DB954;
+        }
+
+        .social-links a {
+            color: #b3b3b3;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #1DB954;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Герой секция -->
+    <header class="hero-section">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="hero-title">Открой мир музыки с SLUHALKA</h1>
+                    <p class="hero-subtitle">Персональные рекомендации, умная статистика и миллионы треков в одном месте. Слушайте то, что действительно нравится.</p>
+                    <div class="hero-buttons">
+                        <a href="{{ url_for('register') }}" class="btn btn-hero">
+                            <i class="fa fa-user-plus me-2"></i>Начать бесплатно
+                        </a>
+                        <a href="{{ url_for('catalog') }}" class="btn btn-hero-outline">
+                            <i class="fa fa-music me-2"></i>Исследовать каталог
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Секция возможностей -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают SLUHALKA?</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">Умные рекомендации</h3>
+                        <p class="feature-description">Наш алгоритм анализирует ваши предпочтения и предлагает музыку, которая точно понравится. Открывайте новых исполнителей каждый день.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Детальная статистика</h3>
+                        <p class="feature-description">Следите за своими музыкальными привычками. Узнайте, какие жанры и исполнители доминируют в ваших плейлистах.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa fa-headphones"></i>
+                        </div>
+                        <h3 class="feature-title">Высокое качество</h3>
+                        <p class="feature-description">Наслаждайтесь музыкой в премиальном качестве. Все треки проходят тщательный отбор и доступны в лучшем звучании.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция популярных треков -->
+    <section class="popular-section">
+        <div class="container">
+            <h2 class="section-title">Популярные треки</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="music-card">
+                        <img src="https://via.placeholder.com/300" class="album-cover" alt="Обложка альбома">
+                        <div class="p-3">
+                            <h5 class="track-title">Bohemian Rhapsody</h5>
+                            <p class="track-artist">Queen</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">5:55</span>
+                                <button class="btn action-btn">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="music-card">
+                        <img src="https://via.placeholder.com/300" class="album-cover" alt="Обложка альбома">
+                        <div class="p-3">
+                            <h5 class="track-title">Blinding Lights</h5>
+                            <p class="track-artist">The Weeknd</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">3:20</span>
+                                <button class="btn action-btn">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="music-card">
+                        <img src="https://via.placeholder.com/300" class="album-cover" alt="Обложка альбома">
+                        <div class="p-3">
+                            <h5 class="track-title">Shape of You</h5>
+                            <p class="track-artist">Ed Sheeran</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">3:53</span>
+                                <button class="btn action-btn">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="/app/templatesates/catalog.html" class="btn btn-hero-outline">
+                    <i class="fa fa-arrow-right me-2"></i>Смотреть все треки
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция статистики -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">Треков в каталоге</div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Активных пользователей</div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Жанров музыки</div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Доступ к музыке</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция призыва к действию -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Готовы начать музыкальное путешествие?</h2>
+            <p class="cta-subtitle">Присоединяйтесь к миллионам пользователей, которые уже открыли для себя новый способ слушать музыку.</p>
+            <a href="/app/templatesates/register.html" class="btn btn-hero">
+                <i class="fa fa-rocket me-2"></i>Присоединиться бесплатно
+            </a>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <h5 class="mb-3">SLUHALKA</h5>
+                    <p class="text-muted mb-4">Ваш персональный музыкальный гид. Открывайте новую музыку каждый день.</p>
+                    <p class="text-muted copyright">Copyright&nbsp;©&nbsp;SLUHALKA 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/assets/js/clean-blog.js"></script>
+    <style>
+        .action-btn {
+            background: transparent;
+            border: 1px solid #b3b3b3;
+            color: #b3b3b3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            border-color: #1DB954;
+            color: #1DB954;
+            transform: scale(1.1);
+        }
+    </style>
+
+
+{% endblock %}

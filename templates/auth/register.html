@@ -1,0 +1,341 @@
+<!-- templates/auth/register.html -->
+{% extends "base.html" %}
+
+{% block title %}Регистрация - SLUHALKA{% endblock %}
+
+{% block extra_css %}
+<style>
+    .register-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 140px 0 80px;
+        margin-bottom: 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .register-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path fill="rgba(255,255,255,0.1)" d="M500,250c138.07,0,250,111.93,250,250s-111.93,250-250,250s-250-111.93-250-250S361.93,250,500,250z"/></svg>') no-repeat center center;
+        background-size: cover;
+        opacity: 0.1;
+    }
+
+    .register-hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: white;
+        font-family: 'Lora', serif;
+    }
+
+    .register-hero .lead {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .register-card {
+        background: #181818;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        margin-top: -60px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .register-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .register-icon {
+        background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+        color: white;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: -50px auto 30px;
+        font-size: 2.5rem;
+        box-shadow: 0 10px 30px rgba(29, 185, 84, 0.3);
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 15px;
+        padding: 15px 20px;
+        transition: all 0.3s ease;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #1DB954;
+        color: white;
+        box-shadow: 0 0 0 0.3rem rgba(29, 185, 84, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .password-strength {
+        height: 6px;
+        border-radius: 3px;
+        margin-top: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .strength-weak {
+        background: linear-gradient(90deg, #ff4757, #ff6b81);
+        width: 25%;
+    }
+
+    .strength-medium {
+        background: linear-gradient(90deg, #ff9f43, #feca57);
+        width: 50%;
+    }
+
+    .strength-strong {
+        background: linear-gradient(90deg, #1DB954, #1ed760);
+        width: 100%;
+    }
+
+    .btn-register {
+        background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+        border: none;
+        border-radius: 15px;
+        padding: 15px 30px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: white;
+        transition: all 0.3s ease;
+        font-family: 'Open Sans', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .btn-register:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(29, 185, 84, 0.4);
+    }
+
+    .login-link {
+        color: #1DB954;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .login-link:hover {
+        color: #1ed760;
+        text-decoration: underline;
+        transform: translateX(5px);
+    }
+
+    .divider {
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+        margin: 30px 0;
+        position: relative;
+    }
+
+    .divider::before {
+        content: 'или';
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #181818;
+        padding: 0 15px;
+        color: #b3b3b3;
+        font-size: 0.9rem;
+    }
+
+    .terms-text {
+        font-size: 0.9rem;
+        color: #b3b3b3;
+        line-height: 1.5;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .form-check-input:checked {
+        background-color: #1DB954;
+        border-color: #1DB954;
+    }
+
+    .form-check-label {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    small.text-muted {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+        .register-hero {
+            padding: 120px 0 60px;
+        }
+
+        .register-hero h1 {
+            font-size: 2.2rem;
+        }
+
+        .register-card {
+            margin-top: -40px;
+        }
+
+        .register-icon {
+            width: 80px;
+            height: 80px;
+            margin: -40px auto 20px;
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Герой секция с формой регистрации -->
+    <header class="register-hero">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1>Присоединяйтесь к SLUHALKA!</h1>
+                    <p class="lead">Создайте аккаунт и откройте мир музыки</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Форма регистрации -->
+    <main class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="register-card p-5">
+                    <div class="register-icon">
+                        <i class="fa fa-user-plus"></i>
+                    </div>
+
+                    <form class="text-center" method="post">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <input class="form-control" type="text" name="username" placeholder="Никнейм" required minlength="3">
+                                <small class="text-muted">Минимум 3 символа</small>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <input class="form-control" type="email" name="email" placeholder="Email" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <input class="form-control" type="password" id="password" name="password" placeholder="Пароль" required minlength="6">
+                            <div class="password-strength strength-weak" id="passwordStrength"></div>
+                            <small class="text-muted">Минимум 6 символов</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <input class="form-control" type="password" name="confirmPassword" placeholder="Подтвердите пароль" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check text-start">
+                                <input class="form-check-input" type="checkbox" id="terms" required>
+                                <label class="form-check-label terms-text" for="terms">
+                                    Я соглашаюсь с <a href="#" class="login-link">Условиями использования</a> и <a href="#" class="login-link">Политикой конфиденциальности</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <button class="btn btn-register w-100 d-block" type="submit">
+                                <i class="fa fa-rocket me-2"></i>Создать аккаунт
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="divider"></div>
+
+                    <div class="text-center">
+                        <p class="text-muted mb-2">Уже есть аккаунт?</p>
+                        <a href="{{ url_for('login') }}" class="login-link fw-bold">
+                            <i class="fa fa-sign-in me-1"></i>Войти в систему
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Индикатор сложности пароля
+    const passwordInput = document.getElementById('password');
+    const passwordStrength = document.getElementById('passwordStrength');
+
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+
+        if (password.length >= 6) strength += 1;
+        if (/[a-z]/.test(password)) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[0-9]/.test(password)) strength += 1;
+        if (/[^a-zA-Z0-9]/.test(password)) strength += 1;
+
+        // Сброс классов
+        passwordStrength.className = 'password-strength';
+
+        if (password.length === 0) {
+            passwordStrength.style.width = '0%';
+        } else if (strength <= 2) {
+            passwordStrength.classList.add('strength-weak');
+        } else if (strength <= 4) {
+            passwordStrength.classList.add('strength-medium');
+        } else {
+            passwordStrength.classList.add('strength-strong');
+        }
+    });
+
+    // Проверка совпадения паролей
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const password = document.querySelector('input[name="password"]').value;
+        const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+        const username = document.querySelector('input[name="username"]').value;
+
+        if (password !== confirmPassword) {
+            e.preventDefault();
+            alert('Пароли не совпадают!');
+            return;
+        }
+
+        if (username.length < 3) {
+            e.preventDefault();
+            alert('Никнейм должен содержать минимум 3 символа!');
+            return;
+        }
+
+        if (password.length < 6) {
+            e.preventDefault();
+            alert('Пароль должен содержать минимум 6 символов!');
+        }
+    });
+</script>
+{% endblock %}

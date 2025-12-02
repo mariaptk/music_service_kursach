@@ -1,0 +1,283 @@
+/* static/css/style.css */
+body {
+    background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 76px; /* Для фиксированной навигации */
+}
+
+.navbar {
+    background: rgba(18, 18, 18, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #282828;
+}
+
+.nav-link {
+    color: #b3b3b3 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #1DB954 !important;
+}
+
+.brand-logo {
+    color: #1DB954 !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Герой секции */
+.catalog-hero, .login-hero, .register-hero, .profile-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 120px 0 60px;
+    margin-bottom: 0;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 160px 0 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #1DB954 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Карточки */
+.music-card {
+    background: #181818;
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.music-card:hover {
+    background: #282828;
+    transform: translateY(-5px);
+}
+
+.album-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.music-card:hover .album-cover {
+    transform: scale(1.05);
+}
+
+.track-title {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.track-artist {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.track-album {
+    color: #b3b3b3;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+/* Кнопки */
+.btn-hero {
+    background: #1DB954;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: white;
+    transition: all 0.3s ease;
+    margin: 0 10px 15px;
+}
+
+.btn-hero:hover {
+    background: #1ed760;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(29, 185, 84, 0.3);
+}
+
+.btn-hero-outline {
+    background: transparent;
+    border: 2px solid #1DB954;
+    color: #1DB954;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin: 0 10px 15px;
+}
+
+.btn-hero-outline:hover {
+    background: #1DB954;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.action-btn {
+    background: transparent;
+    border: 1px solid #b3b3b3;
+    color: #b3b3b3;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    border-color: #1DB954;
+    color: #1DB954;
+    transform: scale(1.1);
+}
+
+/* Формы */
+.login-card, .register-card, .profile-card {
+    background: #181818;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.login-card:hover, .register-card:hover, .profile-card:hover {
+    transform: translateY(-5px);
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 10px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #1DB954;
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.25);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Поиск */
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50px 0 0 50px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-btn {
+    background: #1DB954;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    padding: 0 25px;
+    font-weight: 600;
+    color: white;
+}
+
+.search-btn:hover {
+    background: #1ed760;
+}
+
+/* Заголовки секций */
+.section-title {
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #1DB954;
+    border-radius: 2px;
+}
+
+/* Футер */
+footer {
+    background: rgba(18, 18, 18, 0.95);
+    border-top: 1px solid #282828;
+    padding: 40px 0;
+    margin-top: 60px;
+}
+
+.text-muted {
+    color: #b3b3b3 !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .catalog-hero, .login-hero, .register-hero, .profile-hero {
+        padding: 100px 0 40px;
+    }
+
+    .btn-hero, .btn-hero-outline {
+        padding: 12px 30px;
+        font-size: 1rem;
+        display: block;
+        margin: 10px auto;
+        width: 80%;
+    }
+}

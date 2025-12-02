@@ -1,0 +1,179 @@
+<!-- templates/auth/login.html -->
+{% extends "base.html" %}
+
+{% block title %}Вход - SLUHALKA{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 120px 0 60px;
+        margin-bottom: 0;
+    }
+
+    .login-card {
+        background: #181818;
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .login-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .login-icon {
+        background: #1DB954;
+        color: white;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 2rem;
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 10px;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #1DB954;
+        color: white;
+        box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.25);
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .btn-login {
+        background: #1DB954;
+        border: none;
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 600;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        background: #1ed760;
+        transform: translateY(-2px);
+    }
+
+    .register-link {
+        color: #1DB954;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .register-link:hover {
+        color: #1ed760;
+        text-decoration: underline;
+    }
+
+    .divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 25px 0;
+    }
+
+    .social-login {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .social-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 10px;
+        color: white;
+        transition: all 0.3s ease;
+        flex: 1;
+    }
+
+    .social-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #1DB954;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Герой секция с формой входа -->
+    <header class="login-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="mb-3">С возвращением!</h1>
+                    <p class="lead mb-5">Войдите в свой аккаунт, чтобы продолжить слушать музыку</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Форма входа -->
+    <main class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-card p-4">
+                    <div class="login-icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+
+                    <form method="POST" class="text-center">
+                        <div class="mb-3">
+                            <input class="form-control" type="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" type="password" name="password" placeholder="Пароль" required>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <label class="form-check-label text-muted small" for="rememberMe">
+                                    Запомнить меня
+                                </label>
+                            </div>
+                            <a href="#" class="text-muted small register-link">Забыли пароль?</a>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-login w-100 d-block" type="submit">Войти</button>
+                        </div>
+                    </form>
+
+                    <div class="divider"></div>
+
+                    <div class="social-login mb-4">
+                        <button class="btn social-btn">
+                            <i class="fa fa-google"></i>
+                        </button>
+                        <button class="btn social-btn">
+                            <i class="fa fa-facebook"></i>
+                        </button>
+                        <button class="btn social-btn">
+                            <i class="fa fa-apple"></i>
+                        </button>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-muted mb-0">Еще нет аккаунта?</p>
+                        <a href="{{ url_for('register') }}" class="register-link fw-bold">Зарегистрироваться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,79 @@
+<!-- templates/components/header.html -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand brand-logo" href="{{ url_for('index') }}">🎵 SLUHALKA</a>
+        <button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}"
+                       href="{{ url_for('index') }}">ГЛАВНАЯ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'catalog' %}active{% endif %}"
+                       href="{{ url_for('catalog') }}">КАТАЛОГ</a>
+                </li>
+                {% if session.get('user_id') %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'profile' %}active{% endif %}"
+                       href="{{ url_for('profile') }}">ПРОФИЛЬ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">
+                        ВЫЙТИ ({{ session.get('username') }})
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}"
+                       href="{{ url_for('login') }}">ВОЙТИ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'register' %}active{% endif %}"
+                       href="{{ url_for('register') }}">РЕГИСТРАЦИЯ</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<style>
+.navbar {
+    background: rgba(18, 18, 18, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #282828;
+    padding: 15px 0;
+}
+
+.nav-link {
+    color: #b3b3b3 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    margin: 0 10px;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #1DB954 !important;
+}
+
+.brand-logo {
+    color: #1DB954 !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    font-family: 'Lora', serif;
+}
+
+.navbar-toggler {
+    border: none;
+    color: #b3b3b3;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+</style>

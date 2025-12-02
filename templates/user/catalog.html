@@ -1,0 +1,464 @@
+<!-- templates/user/catalog.html -->
+{% extends "base.html" %}
+
+{% block title %}Музыкальный каталог - SLUHALKA{% endblock %}
+
+{% block extra_css %}
+<style>
+        body {
+            background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #282828;
+        }
+
+        .nav-link {
+            color: #b3b3b3 !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #1DB954 !important;
+        }
+
+        .brand-logo {
+            color: #1DB954 !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .catalog-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 120px 0 80px;
+            margin-bottom: 40px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px 0 0 50px;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-btn {
+            background: #1DB954;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            padding: 0 25px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .search-btn:hover {
+            background: #1ed760;
+        }
+
+        .filter-section {
+            background: #181818;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #b3b3b3;
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #1DB954;
+            color: white;
+        }
+
+        .sort-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 10px;
+            padding: 8px 15px;
+        }
+
+        .music-card {
+            background: #181818;
+            border: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .music-card:hover {
+            background: #282828;
+            transform: translateY(-5px);
+        }
+
+        .album-cover {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .music-card:hover .album-cover {
+            transform: scale(1.05);
+        }
+
+        .track-title {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .track-artist {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .track-album {
+            color: #b3b3b3;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .audio-player {
+            width: 100%;
+            height: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            margin-bottom: 10px;
+        }
+
+        .audio-player:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #1DB954;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid #b3b3b3;
+            color: #b3b3b3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            border-color: #1DB954;
+            color: #1DB954;
+            transform: scale(1.1);
+        }
+
+        .action-btn.active {
+            border-color: #1DB954;
+            color: #1DB954;
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #1DB954;
+            border-radius: 2px;
+        }
+
+        .pagination .page-link {
+            background: #181818;
+            border: 1px solid #282828;
+            color: #b3b3b3;
+        }
+
+        .pagination .page-link:hover {
+            background: #1DB954;
+            border-color: #1DB954;
+            color: white;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: #1DB954;
+            border-color: #1DB954;
+            color: white;
+        }
+
+        footer {
+            background: rgba(18, 18, 18, 0.95);
+            border-top: 1px solid #282828;
+            margin-top: 60px;
+            padding: 40px 0;
+        }
+
+        .text-muted {
+            color: #b3b3b3 !important;
+        }
+
+        .btn-outline-primary {
+            border-color: #1DB954;
+            color: #1DB954;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #1DB954;
+            border-color: #1DB954;
+            color: white;
+        }
+
+        .genre-badge {
+            background: rgba(29, 185, 84, 0.2);
+            color: #1DB954;
+            border: 1px solid #1DB954;
+            border-radius: 12px;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            margin-right: 5px;
+        }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Герой секция с поиском -->
+    <header class="catalog-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="mb-4">Найди свою музыку</h1>
+                    <p class="lead mb-4">Откройте миллионы треков и создайте свой уникальный плейлист</p>
+
+                    <div class="search-container">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control search-input" placeholder="Поиск треков, исполнителей, альбомов...">
+                            <button class="btn search-btn" type="button">
+                                <i class="fa fa-search me-2"></i>Найти
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+        <!-- Фильтры и сортировка -->
+        <div class="filter-section">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h5 class="section-title d-inline-block me-3">Фильтры:</h5>
+                    <div class="d-inline-flex flex-wrap">
+                        <button class="filter-btn active">Все</button>
+                        <button class="filter-btn">Поп</button>
+                        <button class="filter-btn">Рок</button>
+                        <button class="filter-btn">Хип-хоп</button>
+                        <button class="filter-btn">Электроника</button>
+                        <button class="filter-btn">Джаз</button>
+                        <button class="filter-btn">Классика</button>
+                        <button class="filter-btn">Инди</button>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <select class="sort-select">
+                        <option>Сортировка: По популярности</option>
+                        <option>По новизне</option>
+                        <option>По названию</option>
+                        <option>По исполнителю</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сетка треков -->
+        <div class="row">
+            {% if tracks %}
+                {% for track in tracks %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="music-card">
+                        <img src="{{ track.cover_url or 'https://via.placeholder.com/300' }}" class="album-cover" alt="Обложка альбома">
+                        <div class="p-3">
+    <h5 class="track-title">{{ track.track_name }}</h5>
+    <p class="track-artist">{{ track.artist_name }}</p>
+    <p class="track-album">{{ track.album_name }}</p>
+
+                <!-- ОБНОВЛЕННЫЙ АУДИОПЛЕЕР ДЛЯ РЕАЛЬНЫХ ТРЕКОВ -->
+                {% if track.full_track_url %}
+                    <!-- Для премиум пользователей - полный трек -->
+                    <audio controls class="audio-player mt-2">
+                        <source src="{{ track.full_track_url }}" type="audio/mpeg">
+                        Ваш браузер не поддерживает аудио элемент.
+                    </audio>
+                    <small class="text-success">🎵 Полная версия</small>
+                {% elif track.preview_url %}
+                    <!-- Для всех - превью трека -->
+                    <audio controls class="audio-player mt-2">
+                        <source src="{{ track.preview_url }}" type="audio/mpeg">
+                        Ваш браузер не поддерживает аудио элемент.
+                    </audio>
+                    <small class="text-warning">⏱️ Превью трека</small>
+                {% else %}
+                    <div class="alert alert-warning mt-2">
+                        Аудио недоступно
+                    </div>
+                {% endif %}
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="text-muted">
+                        {% if track.duration_ms %}
+                            {{ (track.duration_ms / 60000) | round(1) }} мин
+                        {% else %}
+                            Неизвестно
+                        {% endif %}
+                    </span>
+                    <div class="d-flex gap-2">
+                        <button class="btn action-btn favorite-btn" data-track-id="{{ track.track_id }}">
+                            <i class="fa fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="col-12 text-center">
+                <div class="alert alert-info">
+                    <h4>🎵 Музыкальный каталог пуст</h4>
+                    <p>В базе данных пока нет треков. Заполните базу данными.</p>
+                    <a href="/admin" class="btn btn-primary">Перейти в админку</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Пагинация -->
+        {% if tracks %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if current_page > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="/catalog?page={{ current_page - 1 }}{% if search_query %}&q={{ search_query }}{% endif %}{% if genre_filter %}&genre={{ genre_filter }}{% endif %}">Назад</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Назад</a>
+                        </li>
+                        {% endif %}
+
+                        {% for page_num in range(1, 6) %}
+                        <li class="page-item {% if page_num == current_page %}active{% endif %}">
+                            <a class="page-link" href="/catalog?page={{ page_num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if genre_filter %}&genre={{ genre_filter }}{% endif %}">{{ page_num }}</a>
+                        </li>
+                        {% endfor %}
+
+                        <li class="page-item">
+                            <a class="page-link" href="/catalog?page={{ current_page + 1 }}{% if search_query %}&q={{ search_query }}{% endif %}{% if genre_filter %}&genre={{ genre_filter }}{% endif %}">Вперед</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <h5 class="mb-3">SLUHALKA</h5>
+                    <p class="text-muted mb-4">Ваш персональный музыкальный гид. Открывайте новую музыку каждый день.</p>
+                    <p class="text-muted copyright">Copyright&nbsp;©&nbsp;SLUHALKA 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../static/assets/js/clean-blog.js"></script>
+    <script>
+
+        // Фильтры по жанрам
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const genre = this.textContent.trim();
+                if (genre === 'Все') {
+                    window.location.href = '/catalog';
+                } else {
+                    window.location.href = `/catalog?genre=${encodeURIComponent(genre)}`;
+                }
+            });
+        });
+
+        // Добавление в избранное
+        function addToFavorites(trackId) {
+            fetch('/api/favorites', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ track_id: trackId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Добавлено в избранное!');
+                }
+            });
+        }
+
+        // Поиск с отправкой формы
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm) {
+                window.location.href = `/catalog?q=${encodeURIComponent(searchTerm)}`;
+            }
+        });
+
+        // Enter для поиска
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value;
+                if (searchTerm) {
+                    window.location.href = `/catalog?q=${encodeURIComponent(searchTerm)}`;
+                }
+            }
+        });
+    </script>
+{% endblock %}
